@@ -1,13 +1,10 @@
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day01Test {
-	Pattern p = Pattern.compile("%d");
-	
 	@ParameterizedTest
 	@AocFileSource(inputs = {
 			@AocInputMapping(input = "test.txt", solution = "142"),
@@ -43,15 +40,15 @@ class Day01Test {
 	}
 
 	private String replaceNames(String s) {
-		var one = s.replaceAll("one", "one1one");
-		var two = one.replaceAll("two", "two2two");
-		var three = two.replaceAll("three", "three3three");
-		var four = three.replaceAll("four", "four4four");
-		var five = four.replaceAll("five", "five5five");
-		var six = five.replaceAll("six", "six6six");
-		var seven = six.replaceAll("seven", "seven7seven");
-		var eight = seven.replaceAll("eight", "eight8eight");
-		var nine = eight.replaceAll("nine", "nine9nine");
+		var one = s.replaceAll("one", "o1e");
+		var two = one.replaceAll("two", "t2");
+		var three = two.replaceAll("three", "t3e");
+		var four = three.replaceAll("four", "4");
+		var five = four.replaceAll("five", "5e");
+		var six = five.replaceAll("six", "6");
+		var seven = six.replaceAll("seven", "7n");
+		var eight = seven.replaceAll("eight", "8");
+		var nine = eight.replaceAll("nine", "9");
 		return nine;
 	}
 }
