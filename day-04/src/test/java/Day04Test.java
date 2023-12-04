@@ -52,7 +52,7 @@ class Day04Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
 			@AocInputMapping(input = "test.txt", solution = "30"),
-			@AocInputMapping(input = "input.txt", solution = "-1")
+			@AocInputMapping(input = "input.txt", solution = "6284877")
 	})
 	void part2(Stream<String> input, String solution) {
 		var cards = input.map(a -> {
