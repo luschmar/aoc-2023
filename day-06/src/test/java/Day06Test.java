@@ -1,5 +1,4 @@
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.platform.commons.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,27 +17,28 @@ class Day06Test {
 	})
 	void part1(Stream<String> input, String solution) {
 		var lines = input.toList();
-		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":")+1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();
-		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":")+1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();;
-		var result = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicInteger()).toList());
+		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":") + 1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();
+		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":") + 1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();
+		;
+		var resultList = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicInteger()).toList());
 
-		for(int i = 0; i < time.size(); i++) {
+		for (int i = 0; i < time.size(); i++) {
 			var t = time.get(i);
 			var d = distance.get(i);
-			for(int j= 1; j < t;j++) {
+			for (int j = 1; j < t; j++) {
 				var timeToTravel = t - j;
-				var speedToTravel =j;
-				var distanceTravel = timeToTravel*speedToTravel;
+				var speedToTravel = j;
+				var distanceTravel = timeToTravel * speedToTravel;
 
-				if(distanceTravel > d) {
-					result.get(i).incrementAndGet();
+				if (distanceTravel > d) {
+					resultList.get(i).incrementAndGet();
 				}
-
 			}
 		}
 
+		var result = resultList.stream().mapToInt(AtomicInteger::get).reduce(1, (a, b) -> a * b);
 
-		assertEquals(Integer.parseInt(solution), result.stream().mapToInt(AtomicInteger::get).reduce(1, (a,b)->a*b));
+		assertEquals(Integer.parseInt(solution), result);
 	}
 
 	@ParameterizedTest
@@ -48,26 +48,27 @@ class Day06Test {
 	})
 	void part2(Stream<String> input, String solution) {
 		var lines = input.toList();
-		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":")+1).replaceAll(" ","").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();
-		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":")+1).replaceAll(" ","").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();;
-		var result = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicLong()).toList());
+		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":") + 1).replaceAll(" ", "").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();
+		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":") + 1).replaceAll(" ", "").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();
+		;
+		var resultList = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicLong()).toList());
 
-		for(int i = 0; i < time.size(); i++) {
+		for (int i = 0; i < time.size(); i++) {
 			var t = time.get(i);
 			var d = distance.get(i);
-			for(int j= 1; j < t;j++) {
+			for (int j = 1; j < t; j++) {
 				var timeToTravel = t - j;
 				var speedToTravel = j;
-				var distanceTravel = timeToTravel*speedToTravel;
+				var distanceTravel = timeToTravel * speedToTravel;
 
-				if(distanceTravel > d) {
-					result.get(i).incrementAndGet();
+				if (distanceTravel > d) {
+					resultList.get(i).incrementAndGet();
 				}
-
 			}
 		}
 
+		var result = resultList.stream().mapToLong(AtomicLong::get).reduce(1, (a, b) -> a * b);
 
-		assertEquals(Long.parseLong(solution), result.stream().mapToLong(AtomicLong::get).reduce(1, (a,b)->a*b));
+		assertEquals(Long.parseLong(solution), result);
 	}
 }
