@@ -52,7 +52,7 @@ class Day06Test {
 				.mapToObj(a -> new Race(time.get(a), distance.get(a))).toList();
 
 		var result = raceList.stream()
-				.mapToLong(r -> IntStream.range(1, (int)r.time()).filter(r::win).count())
+				.mapToLong(r -> IntStream.range(1, (int)r.time()).parallel().filter(r::win).count())
 				.reduce(1, (a, b) -> a * b);
 
 		assertEquals(Long.parseLong(solution), result);
