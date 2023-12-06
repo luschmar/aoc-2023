@@ -1,9 +1,6 @@
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -19,26 +16,26 @@ class Day06Test {
 		var lines = input.toList();
 		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":") + 1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();
 		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":") + 1).split(" ")).filter(a -> !"".equals(a)).map(Integer::parseInt).toList();
-		;
-		var resultList = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicInteger()).toList());
 
-		for (int i = 0; i < time.size(); i++) {
-			var t = time.get(i);
-			var d = distance.get(i);
-			for (int j = 1; j < t; j++) {
-				var timeToTravel = t - j;
-				var speedToTravel = j;
-				var distanceTravel = timeToTravel * speedToTravel;
+		var raceList = IntStream.range(0, time.size())
+				.mapToObj(a -> new Race(time.get(a), distance.get(a))).toList();
 
-				if (distanceTravel > d) {
-					resultList.get(i).incrementAndGet();
-				}
-			}
-		}
-
-		var result = resultList.stream().mapToInt(AtomicInteger::get).reduce(1, (a, b) -> a * b);
+		var result = raceList.stream()
+				.mapToLong(r -> IntStream.range(1, (int)r.time()).filter(r::win).count())
+				.reduce(1, (a, b) -> a * b);
 
 		assertEquals(Integer.parseInt(solution), result);
+	}
+
+	record Race(long time, long distance) {
+		long distance(int buttonTime) {
+			var timeToTravel = time() - buttonTime;
+			return timeToTravel * buttonTime;
+		}
+
+		boolean win(int buttonTime) {
+			return distance(buttonTime) > distance();
+		}
 	}
 
 	@ParameterizedTest
@@ -50,24 +47,13 @@ class Day06Test {
 		var lines = input.toList();
 		var time = Arrays.stream(lines.get(0).substring(lines.get(0).indexOf(":") + 1).replaceAll(" ", "").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();
 		var distance = Arrays.stream(lines.get(1).substring(lines.get(1).indexOf(":") + 1).replaceAll(" ", "").split(" ")).filter(a -> !"".equals(a)).map(Long::parseLong).toList();
-		;
-		var resultList = new ArrayList<>(IntStream.range(0, time.size()).mapToObj(a -> new AtomicLong()).toList());
 
-		for (int i = 0; i < time.size(); i++) {
-			var t = time.get(i);
-			var d = distance.get(i);
-			for (int j = 1; j < t; j++) {
-				var timeToTravel = t - j;
-				var speedToTravel = j;
-				var distanceTravel = timeToTravel * speedToTravel;
+		var raceList = IntStream.range(0, time.size())
+				.mapToObj(a -> new Race(time.get(a), distance.get(a))).toList();
 
-				if (distanceTravel > d) {
-					resultList.get(i).incrementAndGet();
-				}
-			}
-		}
-
-		var result = resultList.stream().mapToLong(AtomicLong::get).reduce(1, (a, b) -> a * b);
+		var result = raceList.stream()
+				.mapToLong(r -> IntStream.range(1, (int)r.time()).filter(r::win).count())
+				.reduce(1, (a, b) -> a * b);
 
 		assertEquals(Long.parseLong(solution), result);
 	}
