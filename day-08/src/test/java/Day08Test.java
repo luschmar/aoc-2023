@@ -1,14 +1,19 @@
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.toMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day08Test {
 	@ParameterizedTest
-	@AocFileSource(inputs = {@AocInputMapping(input = "test.txt", solution = "2"), @AocInputMapping(input = "test2.txt", solution = "6"), @AocInputMapping(input = "input.txt", solution = "20777")})
+	@AocFileSource(inputs = {
+			@AocInputMapping(input = "test.txt", solution = "2"),
+			@AocInputMapping(input = "test2.txt", solution = "6"),
+			@AocInputMapping(input = "input.txt", solution = "20777")
+	})
 	void part1(Stream<String> input, String solution) {
 		var lines = input.toList();
 		var nodes = lines.stream().map(s -> {
@@ -20,18 +25,18 @@ class Day08Test {
 				return new Node(name, left, right);
 			}
 			return null;
-		}).filter(Objects::nonNull).toList();
+		}).filter(Objects::nonNull).collect(toMap(Node::name, identity()));
 
 		// follow instructions
-		var currentNode = findNode(nodes, "AAA");
+		var currentNode = nodes.get("AAA");
 		int i = 0;
 		while (!"ZZZ".equals(currentNode.name())) {
 			for (var c : lines.get(0).toCharArray()) {
 				if ('R' == c) {
-					currentNode = findNode(nodes, currentNode.right());
+					currentNode = nodes.get(currentNode.right());
 					i++;
 				} else {
-					currentNode = findNode(nodes, currentNode.left());
+					currentNode = nodes.get(currentNode.left());
 					i++;
 				}
 				if ("ZZZ".equals(currentNode.name())) {
@@ -43,19 +48,14 @@ class Day08Test {
 		assertEquals(Integer.parseInt(solution), i);
 	}
 
-	private Node findNode(List<Node> nodes, String search) {
-		return nodes.stream().filter(a -> search.equals(a.name())).findFirst().orElseThrow();
-	}
-
-	private List<Node> findNodes(List<Node> nodes, String search) {
-		return nodes.stream().filter(a -> a.name().endsWith(search)).toList();
-	}
-
 	record Node(String name, String left, String right) {
 	}
 
 	@ParameterizedTest
-	@AocFileSource(inputs = {@AocInputMapping(input = "test3.txt", solution = "6"), @AocInputMapping(input = "input.txt", solution = "13289612809129")})
+	@AocFileSource(inputs = {
+			@AocInputMapping(input = "test3.txt", solution = "6"),
+			@AocInputMapping(input = "input.txt", solution = "13289612809129")
+	})
 	void part2(Stream<String> input, String solution) {
 		var lines = input.toList();
 		var nodes = lines.stream().map(s -> {
@@ -67,21 +67,21 @@ class Day08Test {
 				return new Node(name, left, right);
 			}
 			return null;
-		}).filter(Objects::nonNull).toList();
+		}).filter(Objects::nonNull).collect(toMap(Node::name, identity()));
 
 		// follow instructions
-		var currentNodes = findNodes(nodes, "A");
+		var starterNodeStream = nodes.values().stream().filter(e -> e.name().endsWith("A"));
 
-		long result = currentNodes.stream().mapToLong(n -> {
+		long result = starterNodeStream.mapToLong(n -> {
 			var currentNode = n;
 			long i = 0;
 			while (!currentNode.name().endsWith("Z")) {
 				for (var c : lines.get(0).toCharArray()) {
 					if ('R' == c) {
-						currentNode = findNode(nodes, currentNode.right());
+						currentNode = nodes.get(currentNode.right());
 						i++;
 					} else {
-						currentNode = findNode(nodes, currentNode.left());
+						currentNode = nodes.get(currentNode.left());
 						i++;
 					}
 					if (currentNode.name().endsWith("Z")) {
@@ -95,7 +95,7 @@ class Day08Test {
 		assertEquals(Long.parseLong(solution), result);
 	}
 
-	private static long gcd(long x, long y) {
+	static long gcd(long x, long y) {
 		return (y == 0) ? x : gcd(y, x % y);
 	}
 }
