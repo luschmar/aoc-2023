@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 import static java.lang.Math.abs;
+import static java.util.Comparator.reverseOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day11Test {
@@ -19,6 +20,7 @@ class Day11Test {
 	})
 	void part1(Stream<String> input, String solution) {
 		var u = new Universe(input.toList());
+		u.printUniverse();
 		var result = u.calculateDistanceWithExpansionFactor(2);
 		assertEquals(Long.parseLong(solution), result);
 	}
@@ -103,6 +105,27 @@ class Day11Test {
 
 				return sum;
 			})).sum();
+		}
+		public static final String ANSI_RESET = "\u001B[0m";
+		public static final String ANSI_YELLOW = "\u001B[33m";
+		public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+
+		void printUniverse() {
+			IntStream.range(0, rawUniverse.size()).forEach(x -> {
+				if(horizontalExpansionPoints.contains(x)) {
+					System.out.println(ANSI_BLACK_BACKGROUND+rawUniverse.get(x)+ANSI_RESET);
+				} else {
+					var l = new StringBuilder(rawUniverse.get(x));
+					verticalExpansionPoints.stream().sorted(reverseOrder()).forEach(y -> {
+						l.insert(y+1, ANSI_RESET);
+						l.insert(y, ANSI_BLACK_BACKGROUND);
+					}
+					);
+					System.out.println(l.toString().replaceAll("#", ANSI_YELLOW+"#"+ANSI_RESET));
+				}
+			});
+			System.out.println();
+			System.out.println();
 		}
 	}
 
