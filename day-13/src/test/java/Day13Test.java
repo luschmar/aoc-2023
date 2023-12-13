@@ -46,10 +46,13 @@ class Day13Test {
 	int findMirror(List<String> t) {
 		return IntStream.range(0, t.size() - 1)
 				// prefilter candidates
-				.filter(i -> t.get(i).equals(t.get(i + 1))).map(c -> {
+				.filter(i -> t.get(i).equals(t.get(i + 1)))
+				// now filter
+				.map(c -> {
 					// mirror candidate; check rest
 					int mirrorSize = Integer.min(c + 1, t.size() - c - 1);
 
+					// all ok...
 					var res = IntStream.range(0, mirrorSize).allMatch(m -> t.get(c - m).equals(t.get(c + 1 + m)));
 					if (res) {
 						//printTable(t);
@@ -87,11 +90,8 @@ class Day13Test {
 		}
 
 		var result = tables.stream().mapToInt(t -> {
-			var t1 = t;
-			var t2 = transpose(t);
-
-			var s1 = findSmudges(t1);
-			var s2 = findSmudges(t2);
+			var s1 = findAxisWithOneSmudge(t);
+			var s2 = findAxisWithOneSmudge(transpose(t));
 
 			if (s1 == 0) {
 				return s2;
@@ -102,12 +102,14 @@ class Day13Test {
 		assertEquals(Integer.parseInt(solution), result);
 	}
 
-	int findSmudges(List<String> t) {
+	int findAxisWithOneSmudge(List<String> t) {
+		// check all possibilities 🙄 - but stop after more than 1 error
 		return IntStream.range(0, t.size() - 1).map(c -> {
-			// mirror candidate; check rest
+
 			int mirrorSize = Integer.min(c + 1, t.size() - c - 1);
 
 			int error = 0;
+			// check each pair; error total more than 1 exit!
 			for (int i = 0; (error <= 1) && i < mirrorSize; i++) {
 				var up = t.get(c - i);
 				var down = t.get(c + 1 + i);
@@ -116,7 +118,6 @@ class Day13Test {
 				}
 				error += (int) IntStream.range(0, up.length()).filter(e -> up.charAt(e) != down.charAt(e)).count();
 			}
-
 			if (error == 1) {
 				// found mirror-axis with exact 1 error
 				return c + 1;
