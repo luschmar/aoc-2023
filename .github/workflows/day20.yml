@@ -12,4 +12,4 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
-      - run: ./mvnw -Dtest=Day20Test test
+      - run: ./mvnw -q -Dtest=Day20Test test
