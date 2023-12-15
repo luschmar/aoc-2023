@@ -44,14 +44,12 @@ class Day15Test {
 			var box = boxes.get(doHASH(label));
 			var lensList = box.lenses();
 			if(step.contains("=")) {
-				var vocal = Integer.parseInt(step.split("=")[1]);
-				var oldLens = lensList.stream().filter(a -> label.equals(a.label())).findFirst();
-				if(oldLens.isPresent()) {
-					var oldPos = lensList.indexOf(oldLens.get());
-					lensList.add(oldPos, new Lens(label, vocal));
-					lensList.remove(oldPos+1);
+				var focal = Integer.parseInt(step.split("=")[1]);
+				var oldLensI = IntStream.range(0, lensList.size()).filter(a -> label.equals(lensList.get(a).label())).findFirst();
+				if(oldLensI.isPresent()) {
+					lensList.set(oldLensI.getAsInt(), new Lens(label, focal));
 				}else {
-					lensList.add(new Lens(label, vocal));
+					lensList.add(new Lens(label, focal));
 				}
 			}
 			if(step.contains("-")) {
