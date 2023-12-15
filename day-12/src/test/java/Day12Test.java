@@ -46,16 +46,16 @@ class Day12Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "21"),
-			@AocInputMapping(input = "input.txt", solution = "7922")
+			@AocInputMapping(input = "test.txt", expected = "21"),
+			@AocInputMapping(input = "input.txt", expected = "7922")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var result = input
 				.map(s -> new SpringRow(s.split(" ")[0], s.split(" ")[1]))
 				.mapToLong(sr -> bitMaskStream(sr.map()).filter(s -> filterMatching(s, sr.regex())).count())
 				.sum();
 
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	private boolean filterMatching(String input, String contiguousGroup) {
@@ -77,11 +77,11 @@ class Day12Test {
 	 */
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "525152"),
-			@AocInputMapping(input = "test1.txt", solution = "16384"),
-			@AocInputMapping(input = "input.txt", solution = "18093821750095")
+			@AocInputMapping(input = "test.txt", expected = "525152"),
+			@AocInputMapping(input = "test1.txt", expected = "16384"),
+			@AocInputMapping(input = "input.txt", expected = "18093821750095")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var list = input.mapToLong(s -> {
 			var springs = IntStream.range(0, 5).mapToObj(k -> s.split(" ")[0]).collect(joining("?"));
 			var groups = Arrays.stream(IntStream.range(0, 5).mapToObj(k -> s.split(" ")[1]).collect(joining(",")).split(",")).mapToInt(Integer::parseInt).toArray();
@@ -89,11 +89,11 @@ class Day12Test {
 			return countArrangements(new HashMap<>(), springs, groups,0,0,0);
 		}).sum();
 
-		assertEquals(Long.parseLong(solution), list);
+		assertEquals(Long.parseLong(expected), list);
 	}
 
 	/**
-	 * 😭 - not my solution - https://github.com/SimonBaars/AdventOfCode-Java/blob/master/src/main/java/com/sbaars/adventofcode/year23/days/Day12.java
+	 * 😭 - not my expected - https://github.com/SimonBaars/AdventOfCode-Java/blob/master/src/main/java/com/sbaars/adventofcode/year23/days/Day12.java
 	 */
 	long countArrangements(Map<String, Long> blockMap, String map, int[] amounts, int i, int j, int cur) {
 		var key = Arrays.stream(new int[]{i,j,cur}).boxed().map(Object::toString).collect(joining(","));

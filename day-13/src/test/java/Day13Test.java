@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day13Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "405"),
-			@AocInputMapping(input = "input.txt", solution = "33975")
+			@AocInputMapping(input = "test.txt", expected = "405"),
+			@AocInputMapping(input = "input.txt", expected = "33975")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var all = input.toList();
 
 		var tables = new ArrayList<List<String>>();
@@ -34,7 +34,7 @@ class Day13Test {
 
 		var result = sumH + sumV;
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	List<String> transpose(List<String> t) {
@@ -71,10 +71,10 @@ class Day13Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "400"),
-			@AocInputMapping(input = "input.txt", solution = "29083")
+			@AocInputMapping(input = "test.txt", expected = "400"),
+			@AocInputMapping(input = "input.txt", expected = "29083")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var all = input.toList();
 
 		var tables = new ArrayList<List<String>>();
@@ -99,7 +99,7 @@ class Day13Test {
 			return s1 * 100;
 		}).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	int findAxisWithOneSmudge(List<String> t) {

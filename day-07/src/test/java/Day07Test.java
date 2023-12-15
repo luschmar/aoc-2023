@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day07Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "6440"),
-			@AocInputMapping(input = "input.txt", solution = "253933213") 
+			@AocInputMapping(input = "test.txt", expected = "6440"),
+			@AocInputMapping(input = "input.txt", expected = "253933213")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var cards = input.map(s -> new CardHand(s.split(" ")[0], Integer.parseInt(s.split(" ")[1]))).toList();
 
 		var sorted = cards.stream().sorted((c1, c2) -> c1.compareTo(c2)).toList();
@@ -27,7 +27,7 @@ class Day07Test {
 			return sorted.get(a).value * (sorted.size() - a);
 		}).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	private String replaceString(String string) {
@@ -153,10 +153,10 @@ class Day07Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "5905"),
-			@AocInputMapping(input = "input.txt", solution = "253473930") 
+			@AocInputMapping(input = "test.txt", expected = "5905"),
+			@AocInputMapping(input = "input.txt", expected = "253473930")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var cards = input.map(s -> new JokerHand(s.split(" ")[0], Integer.parseInt(s.split(" ")[1]))).toList();
 
 		var sorted = cards.stream().sorted((c1, c2) -> c1.compareTo(c2)).toList();
@@ -167,6 +167,6 @@ class Day07Test {
 			return sorted.get(a).value * (sorted.size() - a);
 		}).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 }

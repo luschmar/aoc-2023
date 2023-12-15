@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day02Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "8"),
-			@AocInputMapping(input = "input.txt", solution = "2237") 
+			@AocInputMapping(input = "test.txt", expected = "8"),
+			@AocInputMapping(input = "input.txt", expected = "2237")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var result = input.map(s -> {
 			var gameNumber = Integer.parseInt(s.substring(5, s.indexOf(":")));
 			var gameRuns = Arrays.stream(s.substring(s.indexOf(":")+1).split(";")).map(gameString -> {
@@ -43,15 +43,15 @@ class Day02Test {
 			return true;
 		}).mapToInt(a -> a.id).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "2286"),
-			@AocInputMapping(input = "input.txt", solution = "66681")
+			@AocInputMapping(input = "test.txt", expected = "2286"),
+			@AocInputMapping(input = "input.txt", expected = "66681")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var result = input.map(s -> {
 			var gameNumber = Integer.parseInt(s.substring(5, s.indexOf(":")));
 			var gameRuns = Arrays.stream(s.substring(s.indexOf(":")+1).split(";")).map(gameString -> {
@@ -77,7 +77,7 @@ class Day02Test {
 			return bMax*rMax*gMax;
 		}).sum();	
 		
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 
 	}
 	

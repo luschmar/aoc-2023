@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.*;
@@ -12,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day05Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "35"),
-			@AocInputMapping(input = "input.txt", solution = "278755257")}
+			@AocInputMapping(input = "test.txt", expected = "35"),
+			@AocInputMapping(input = "input.txt", expected = "278755257")}
 	)
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var lines = input.toList();
 
 		Map<String, Transformer> transformers = new HashMap<>();
@@ -48,7 +47,7 @@ class Day05Test {
 			locations.add(currentValue);
 		}
 
-		assertEquals(Long.parseLong(solution), locations.stream().mapToLong(a -> a).min().getAsLong());
+		assertEquals(Long.parseLong(expected), locations.stream().mapToLong(a -> a).min().getAsLong());
 
 	}
 
@@ -93,10 +92,10 @@ class Day05Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "46"),
-			@AocInputMapping(input = "input.txt", solution = "26829166") // runs 5min
+			@AocInputMapping(input = "test.txt", expected = "46"),
+			@AocInputMapping(input = "input.txt", expected = "26829166") // runs 5min
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var lines = input.toList();
 
 		Map<String, Transformer> transformers = new HashMap<>();
@@ -143,7 +142,7 @@ class Day05Test {
 			}
 		}
 
-		assertEquals(Long.parseLong(solution), minLocation.get());
+		assertEquals(Long.parseLong(expected), minLocation.get());
 	}
 
 	record SRange(long start, long lenght) {

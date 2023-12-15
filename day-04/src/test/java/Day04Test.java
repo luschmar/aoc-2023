@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day04Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "13"),
-			@AocInputMapping(input = "input.txt", solution = "26443")
+			@AocInputMapping(input = "test.txt", expected = "13"),
+			@AocInputMapping(input = "input.txt", expected = "26443")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var sum = input.map(a -> {
 			var winningString = a.split("\\|")[0].substring(a.indexOf(":")+1);
 			var winning = Arrays.asList(winningString
@@ -31,7 +31,7 @@ class Day04Test {
 		}).mapToDouble(a -> a.winningPoints()).sum();
 		
 		
-		assertEquals(Double.parseDouble(solution), sum);
+		assertEquals(Double.parseDouble(expected), sum);
 	}
 	
 	record Card(List<Integer> winning, List<Integer> numbers) {
@@ -51,10 +51,10 @@ class Day04Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "30"),
-			@AocInputMapping(input = "input.txt", solution = "6284877")
+			@AocInputMapping(input = "test.txt", expected = "30"),
+			@AocInputMapping(input = "input.txt", expected = "6284877")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var cards = input.map(a -> {
 			var winningString = a.split("\\|")[0].substring(a.indexOf(":")+1);
 			var winning = Arrays.asList(winningString
@@ -88,7 +88,7 @@ class Day04Test {
 		});
 
 		var result = instances.values().stream().mapToLong(e -> e.intValue()).sum();
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 	
 	

@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day15Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "1320"),
-			@AocInputMapping(input = "input.txt", solution = "503487")
+			@AocInputMapping(input = "test.txt", expected = "1320"),
+			@AocInputMapping(input = "input.txt", expected = "503487")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var result = Arrays.stream(input.toList().getFirst().split(",")).mapToInt(this::doHASH).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	int doHASH(String string) {
@@ -32,10 +32,10 @@ class Day15Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "145"),
-			@AocInputMapping(input = "input.txt", solution = "261505")
+			@AocInputMapping(input = "test.txt", expected = "145"),
+			@AocInputMapping(input = "input.txt", expected = "261505")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var boxes = IntStream.range(0, 256).mapToObj(i -> new Box(i, new ArrayList<>())).toList();
 
 		var steps = input.toList().getFirst().split(",");
@@ -62,7 +62,7 @@ class Day15Test {
 
 		var result = boxes.stream().mapToInt(Box::focusingPower).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	record Box(int index, List<Lens> lenses) {

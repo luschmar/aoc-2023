@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day01Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "142"),
-			@AocInputMapping(input = "input.txt", solution = "54605")
+			@AocInputMapping(input = "test.txt", expected = "142"),
+			@AocInputMapping(input = "input.txt", expected = "54605")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var result = input.mapToLong(s -> {
 			var digit = s.replaceAll("\\D", "");
 			var first = digit.charAt(0);
@@ -19,15 +19,15 @@ class Day01Test {
 			return Long.parseLong(first+""+last);
 		}).sum();
 		
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test2.txt", solution = "281"),
-			@AocInputMapping(input = "input.txt", solution = "55429")
+			@AocInputMapping(input = "test2.txt", expected = "281"),
+			@AocInputMapping(input = "input.txt", expected = "55429")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var result = input.mapToLong(s -> {
 			var newString = replaceNames(s);
 			var digit = newString.replaceAll("\\D", "");
@@ -36,7 +36,7 @@ class Day01Test {
 
 			return Long.parseLong(first+""+last);
 		}).sum();
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	private String replaceNames(String s) {

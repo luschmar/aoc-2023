@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day09Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "114"),
-			@AocInputMapping(input = "input.txt", solution = "1969958987") 
+			@AocInputMapping(input = "test.txt", expected = "114"),
+			@AocInputMapping(input = "input.txt", expected = "1969958987")
 			})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var result = input.map(this::readLine).mapToInt(this::predictNextNumber).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	List<Integer> readLine(String l) {
@@ -36,12 +36,12 @@ class Day09Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "2"),
-			@AocInputMapping(input = "input.txt", solution = "1068")
+			@AocInputMapping(input = "test.txt", expected = "2"),
+			@AocInputMapping(input = "input.txt", expected = "1068")
 			})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var result = input.map(this::readLine).mapToInt(this::predictFirstNumber).sum();
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 
 	}
 

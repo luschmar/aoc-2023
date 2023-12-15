@@ -14,10 +14,10 @@ class Day03Test {
 	
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "4361"),
-			@AocInputMapping(input = "input.txt", solution = "521515")
+			@AocInputMapping(input = "test.txt", expected = "4361"),
+			@AocInputMapping(input = "input.txt", expected = "521515")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var lines = input.toList();
 		var parts = new ArrayList<Part>();
 		
@@ -60,15 +60,15 @@ class Day03Test {
 			return symbolWithoutDot.matcher(line1).find() || symbolWithoutDot.matcher(line2).find() || symbolWithoutDot.matcher(line3).find();
 		}).mapToLong(a -> a.number).sum();
 		
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "467835"),
-			@AocInputMapping(input = "input.txt", solution = "69527306")
+			@AocInputMapping(input = "test.txt", expected = "467835"),
+			@AocInputMapping(input = "input.txt", expected = "69527306")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 
 		var lines = input.toList();
 		var parts = new ArrayList<Part>();
@@ -98,7 +98,7 @@ class Day03Test {
 			return 0;
 		}).sum();
 		
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 	
 	record Point(int x, int y) {

@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day08Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "2"),
-			@AocInputMapping(input = "test2.txt", solution = "6"),
-			@AocInputMapping(input = "input.txt", solution = "20777")
+			@AocInputMapping(input = "test.txt", expected = "2"),
+			@AocInputMapping(input = "test2.txt", expected = "6"),
+			@AocInputMapping(input = "input.txt", expected = "20777")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var lines = input.toList();
 		var nodes = lines.stream().map(s -> {
 			if (s.contains("=")) {
@@ -45,7 +45,7 @@ class Day08Test {
 			}
 		}
 
-		assertEquals(Integer.parseInt(solution), i);
+		assertEquals(Integer.parseInt(expected), i);
 	}
 
 	record Node(String name, String left, String right) {
@@ -53,10 +53,10 @@ class Day08Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test3.txt", solution = "6"),
-			@AocInputMapping(input = "input.txt", solution = "13289612809129")
+			@AocInputMapping(input = "test3.txt", expected = "6"),
+			@AocInputMapping(input = "input.txt", expected = "13289612809129")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var lines = input.toList();
 		var nodes = lines.stream().map(s -> {
 			if (s.contains("=")) {
@@ -92,7 +92,7 @@ class Day08Test {
 			return i;
 		}).reduce(1, (x, y) -> x * (y / gcd(x, y))); // lcm
 
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	static long gcd(long x, long y) {

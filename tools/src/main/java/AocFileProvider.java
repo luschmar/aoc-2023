@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AocFileProvider implements ArgumentsProvider, AnnotationConsumer<AocFileSource> {
-	private Map<Stream<String>, String> resourceStreamWithSolution;
+	private Map<Stream<String>, String> resourceStreamWithExpected;
 
 	@Override
 	public void accept(AocFileSource aocFileSource) {
-		this.resourceStreamWithSolution = Arrays.stream(aocFileSource.inputs()).collect(Collectors.toMap(k -> loadFileAsStream(k.input()), AocInputMapping::solution));
+		this.resourceStreamWithExpected = Arrays.stream(aocFileSource.inputs()).collect(Collectors.toMap(k -> loadFileAsStream(k.input()), AocInputMapping::expected));
 	}
 
 	private Stream<String> loadFileAsStream(String resourceName) {
@@ -26,6 +26,6 @@ public class AocFileProvider implements ArgumentsProvider, AnnotationConsumer<Ao
 
 	@Override
 	public Stream<? extends Arguments> provideArguments(ExtensionContext context) {
-		return resourceStreamWithSolution.entrySet().stream().map(e -> () -> new Object[] {e.getKey(), e.getValue()});
+		return resourceStreamWithExpected.entrySet().stream().map(e -> () -> new Object[] {e.getKey(), e.getValue()});
 	}
 }

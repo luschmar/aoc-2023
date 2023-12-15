@@ -15,44 +15,44 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day11Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "374"),
-			@AocInputMapping(input = "input.txt", solution = "9370588")
+			@AocInputMapping(input = "test.txt", expected = "374"),
+			@AocInputMapping(input = "input.txt", expected = "9370588")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var u = new Universe(input.toList());
 		u.printUniverse();
 		var result = u.calculateDistanceWithExpansionFactor(2);
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "1030")
+			@AocInputMapping(input = "test.txt", expected = "1030")
 	})
-	void part2_10(Stream<String> input, String solution) {
+	void part2_10(Stream<String> input, String expected) {
 		var u = new Universe(input.toList());
 		var result = u.calculateDistanceWithExpansionFactor(10);
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "8410")
+			@AocInputMapping(input = "test.txt", expected = "8410")
 	})
-	void part2_100(Stream<String> input, String solution) {
+	void part2_100(Stream<String> input, String expected) {
 		var u = new Universe(input.toList());
 		var result = u.calculateDistanceWithExpansionFactor(100);
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "input.txt", solution = "746207878188")
+			@AocInputMapping(input = "input.txt", expected = "746207878188")
 	})
-	void part2_1000000(Stream<String> input, String solution) {
+	void part2_1000000(Stream<String> input, String expected) {
 		var u = new Universe(input.toList());
 		var result = u.calculateDistanceWithExpansionFactor(1000000);
-		assertEquals(Long.parseLong(solution), result);
+		assertEquals(Long.parseLong(expected), result);
 	}
 
 	static class Universe {

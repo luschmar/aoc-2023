@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day10Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "4"),
-			@AocInputMapping(input = "test2.txt", solution = "8"),
-			@AocInputMapping(input = "input.txt", solution = "6773")
+			@AocInputMapping(input = "test.txt", expected = "4"),
+			@AocInputMapping(input = "test2.txt", expected = "8"),
+			@AocInputMapping(input = "input.txt", expected = "6773")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var array = input.map(String::toCharArray).toArray(char[][]::new);
 		
 		// find start
@@ -42,7 +42,7 @@ class Day10Test {
 		int result = IntStream.of(dist).max().getAsInt() / 2;
 		
 		
-		assertEquals(Integer.parseInt(solution),result);
+		assertEquals(Integer.parseInt(expected),result);
 	}
 
 	class Position {
@@ -258,12 +258,12 @@ class Day10Test {
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test3.txt", solution = "4"),
-			@AocInputMapping(input = "test4.txt", solution = "8"),
-			@AocInputMapping(input = "test5.txt", solution = "10"),
-			@AocInputMapping(input = "input.txt", solution = "493")
+			@AocInputMapping(input = "test3.txt", expected = "4"),
+			@AocInputMapping(input = "test4.txt", expected = "8"),
+			@AocInputMapping(input = "test5.txt", expected = "10"),
+			@AocInputMapping(input = "input.txt", expected = "493")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var array = input.map(String::toCharArray).toArray(char[][]::new);
 		
 		// find start
@@ -289,5 +289,5 @@ class Day10Test {
 		
 		var result = a.countInner();
 		
-		assertEquals(Integer.parseInt(solution),result);	}
+		assertEquals(Integer.parseInt(expected),result);	}
 }

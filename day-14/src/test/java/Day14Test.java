@@ -1,12 +1,10 @@
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -18,10 +16,10 @@ import static java.time.Instant.now;
 class Day14Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
-			@AocInputMapping(input = "test.txt", solution = "136"),
-			@AocInputMapping(input = "input.txt", solution = "109755")
+			@AocInputMapping(input = "test.txt", expected = "136"),
+			@AocInputMapping(input = "input.txt", expected = "109755")
 	})
-	void part1(Stream<String> input, String solution) {
+	void part1(Stream<String> input, String expected) {
 		var table = input.toList();
 		var tt = transpose(table);
 
@@ -33,7 +31,7 @@ class Day14Test {
 			}).count();
 		}).sum();
 
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 
 	private List<String> simulateGravity(List<String> tt) {
@@ -65,10 +63,10 @@ class Day14Test {
 	 */
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "64"),
-			@AocInputMapping(input = "input.txt", solution = "90928")
+			@AocInputMapping(input = "test.txt", expected = "64"),
+			@AocInputMapping(input = "input.txt", expected = "90928")
 	})
-	void part2(Stream<String> input, String solution) {
+	void part2(Stream<String> input, String expected) {
 		var table = input.toList();
 		var r = new Reflector(transpose(table));
 		r.printTable();
@@ -117,19 +115,19 @@ class Day14Test {
 		var cycleSize = indexList.get(1) - indexList.get(0);
 		
 		
-		var solutionIndex = (1000000000 - cycleStart) % cycleSize;
+		var expectedIndex = (1000000000 - cycleStart) % cycleSize;
 		
-		System.out.println("Cache: "+cache.size()+" cycleStart: "+cycleStart+" cycleSize "+cycleSize+" --> "+solutionIndex);
+		System.out.println("Cache: "+cache.size()+" cycleStart: "+cycleStart+" cycleSize "+cycleSize+" --> "+expectedIndex);
 
 		
 		var a = cache.entrySet().stream().filter(e -> calculateWeight(e.getKey().data)==64).toList();
 		System.out.println(a);
 		
-		var res = cache.entrySet().stream().filter(p -> p.getValue().contains(solutionIndex)).map(e -> e.getKey()).toList();
+		var res = cache.entrySet().stream().filter(p -> p.getValue().contains(expectedIndex)).map(e -> e.getKey()).toList();
 		
 		int result = calculateWeight(res.getFirst().data);
 		
-		assertEquals(Integer.parseInt(solution), result);
+		assertEquals(Integer.parseInt(expected), result);
 	}
 	
 	int calculateWeight(List<String> data) {

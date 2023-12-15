@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class Day19Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "-1"),
-			@AocInputMapping(input = "input.txt", solution = "-1")
+			@AocInputMapping(input = "test.txt", expected = "-1"),
+			@AocInputMapping(input = "input.txt", expected = "-1")
 	})
-	void part1(Stream<String> input, String solution) {
-		assertEquals(solution, Long.toString(input.count()));
+	void part1(Stream<String> input, String expected) {
+		assertEquals(expected, Long.toString(input.count()));
 	}
 
 	@ParameterizedTest
 	@AocFileSource(inputs = {
-			@AocInputMapping(input = "test.txt", solution = "-1"),
-			@AocInputMapping(input = "input.txt", solution = "-1")
+			@AocInputMapping(input = "test.txt", expected = "-1"),
+			@AocInputMapping(input = "input.txt", expected = "-1")
 	})
-	void part2(Stream<String> input, String solution) {
-		assertEquals(solution, Long.toString(input.count()));
+	void part2(Stream<String> input, String expected) {
+		assertEquals(expected, Long.toString(input.count()));
 	}
 }
