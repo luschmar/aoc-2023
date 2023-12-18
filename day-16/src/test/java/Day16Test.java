@@ -216,7 +216,7 @@ class Day16Test {
 	@ParameterizedTest
 	@AocFileSource(inputs = { 
 			@AocInputMapping(input = "test.txt", expected  = "51"),
-			@AocInputMapping(input = "input.txt", expected = "-1")
+			@AocInputMapping(input = "input.txt", expected = "7716")
 	})
 	void part2(Stream<String> input, String expected) {
 		var mirrorData = input.map(StringBuilder::new).toList();
